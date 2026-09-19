@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kairos ご提案 | 客室iPadセルフオーダーサイト制作</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1a2332;
+    --navy-deep:#10151f;
+    --gold:#c9a570;
+    --gold-soft:#e3cfa4;
+    --cream:#f5f1ea;
+    --sage:#6f8a76;
+    --sage-deep:#4f6656;
+    --charcoal:#2a2a28;
+    --line:rgba(201,165,112,0.35);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--charcoal);
+    font-family:'Noto Sans JP',sans-serif;
+    font-weight:300;
+    line-height:1.9;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif-en{
+    font-family:'Noto Serif JP','Cormorant Garamond',serif;
+  }
+  .en{
+    font-family:'Cormorant Garamond',serif;
+  }
+  a{color:inherit;}
+  img{max-width:100%;}
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+  section{
+    padding:110px 0;
+  }
+  .tag{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-size:12px;
+    letter-spacing:0.28em;
+    color:var(--gold);
+    font-weight:500;
+  }
+  .tag::before{
+    content:"";
+    width:28px;
+    height:1px;
+    background:var(--gold);
+    display:inline-block;
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    background:
+      radial-gradient(ellipse at 15% 15%, rgba(201,165,112,0.14), transparent 55%),
+      radial-gradient(ellipse at 85% 80%, rgba(111,138,118,0.18), transparent 55%),
+      linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 55%, #16202c 100%);
+    color:var(--cream);
+    padding:130px 0 100px;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 90px);
+    pointer-events:none;
+  }
+  .hero-grid{
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:60px;
+    align-items:center;
+  }
+  .hero-eyebrow{
+    color:var(--gold-soft);
+    font-size:12px;
+    letter-spacing:0.32em;
+    margin-bottom:26px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .hero-eyebrow::before{
+    content:"";
+    width:40px;height:1px;
+    background:var(--gold-soft);
+  }
+  .hero h1{
+    font-size:clamp(28px,4.4vw,46px);
+    font-weight:700;
+    line-height:1.65;
+    margin:0 0 30px;
+    letter-spacing:0.02em;
+  }
+  .hero h1 .accent{
+    color:var(--gold-soft);
+    font-style:italic;
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.15em;
+  }
+  .hero p.lead{
+    font-size:15px;
+    color:rgba(245,241,234,0.75);
+    max-width:480px;
+    margin-bottom:40px;
+  }
+  .hero-meta{
+    display:flex;
+    gap:30px;
+    flex-wrap:wrap;
+  }
+  .hero-meta div{
+    border-left:1px solid var(--line);
+    padding-left:16px;
+  }
+  .hero-meta span{
+    display:block;
+    font-size:11px;
+    letter-spacing:0.15em;
+    color:var(--gold-soft);
+    margin-bottom:6px;
+  }
+  .hero-meta strong{
+    font-family:'Cormorant Garamond',serif;
+    font-size:20px;
+    font-weight:500;
+    color:var(--cream);
+  }
+
+  /* iPad mock */
+  .ipad{
+    position:relative;
+    width:100%;
+    max-width:400px;
+    margin:0 auto;
+    aspect-ratio:3/4;
+    background:linear-gradient(160deg,#0d1420,#1c2738);
+    border-radius:34px;
+    padding:16px;
+    box-shadow:0 40px 80px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(201,165,112,0.15);
+  }
+  .ipad-screen{
+    width:100%;height:100%;
+    border-radius:20px;
+    background:linear-gradient(170deg,#f8f4ec,#ece3d1);
+    padding:26px 22px;
+    display:flex;
+    flex-direction:column;
+    color:var(--navy-deep);
+    position:relative;
+    overflow:hidden;
+  }
+  .ipad-screen::after{
+    content:"";
+    position:absolute;
+    top:-40%;left:-20%;
+    width:140%;height:140%;
+    background:radial-gradient(circle at 30% 20%, rgba(201,165,112,0.25), transparent 60%);
+  }
+  .ipad-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    position:relative;
+    z-index:1;
+  }
+  .ipad-room{
+    font-family:'Cormorant Garamond',serif;
+    font-size:13px;
+    letter-spacing:0.2em;
+    color:var(--sage-deep);
+  }
+  .ipad-room strong{
+    display:block;
+    font-size:26px;
+    color:var(--navy-deep);
+    letter-spacing:0.05em;
+  }
+  .ipad-lang{
+    font-size:10px;
+    letter-spacing:0.1em;
+    display:flex;
+    gap:6px;
+  }
+  .ipad-lang span{
+    border:1px solid rgba(26,35,50,0.25);
+    border-radius:20px;
+    padding:3px 9px;
+  }
+  .ipad-lang span.active{
+    background:var(--navy-deep);
+    color:var(--cream);
+    border-color:var(--navy-deep);
+  }
+  .ipad-title{
+    font-family:'Noto Serif JP',serif;
+    font-size:15px;
+    margin:22px 0 14px;
+    position:relative;
+    z-index:1;
+  }
+  .ipad-items{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    position:relative;
+    z-index:1;
+  }
+  .ipad-item{
+    background:rgba(255,255,255,0.6);
+    border:1px solid rgba(26,35,50,0.08);
+    border-radius:10px;
+    padding:10px 10px 12px;
+    font-size:10px;
+  }
+  .ipad-item .name{
+    font-weight:500;
+    margin-bottom:8px;
+    color:var(--navy-deep);
+  }
+  .ipad-item .stepper{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    font-size:9px;
+  }
+  .ipad-item .stepper i{
+    width:16px;height:16px;
+    border-radius:50%;
+    background:var(--navy-deep);
+    color:#fff;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    font-style:normal;
+  }
+  .ipad-item.sold{
+    opacity:0.5;
+  }
+  .ipad-item.sold .name::after{
+    content:" / SOLD OUT";
+    font-size:8px;
+    color:#a45;
+  }
+  .ipad-pay{
+    margin-top:auto;
+    position:relative;
+    z-index:1;
+    background:var(--navy-deep);
+    color:var(--cream);
+    text-align:center;
+    padding:10px;
+    border-radius:8px;
+    font-size:11px;
+    letter-spacing:0.1em;
+  }
+
+  /* ===== SECTION UNDERSTANDING ===== */
+  .understand{
+    background:var(--cream);
+  }
+  .understand-head{
+    text-align:center;
+    max-width:680px;
+    margin:0 auto 60px;
+  }
+  .understand-head h2{
+    font-size:clamp(22px,3vw,32px);
+    margin:18px 0 0;
+    font-weight:700;
+    line-height:1.7;
+  }
+  .points{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .point{
+    background:var(--cream);
+    padding:34px 32px;
+  }
+  .point .num{
+    font-family:'Cormorant Garamond',serif;
+    font-size:34px;
+    color:var(--gold);
+    font-style:italic;
+    display:block;
+    margin-bottom:10px;
+  }
+  .point h3{
+    font-size:16px;
+    margin:0 0 10px;
+    font-weight:700;
+  }
+  .point p{
+    font-size:13.5px;
+    color:#555;
+    margin:0;
+  }
+
+  /* Design contrast */
+  .designs{
+    background:var(--navy-deep);
+    color:var(--cream);
+    position:relative;
+  }
+  .designs .wrap{position:relative;}
+  .designs-head{
+    text-align:center;
+    margin-bottom:60px;
+  }
+  .designs-head h2{
+    font-size:clamp(22px,3vw,30px);
+    margin:16px 0 0;
+    font-weight:700;
+  }
+  .design-cards{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:28px;
+  }
+  .design-card{
+    border-radius:16px;
+    padding:40px 30px;
+    position:relative;
+    overflow:hidden;
+  }
+  .design-card.a{
+    background:linear-gradient(150deg,#1a2332,#0f1622);
+    border:1px solid rgba(201,165,112,0.3);
+  }
+  .design-card.b{
+    background:linear-gradient(150deg,#3d4f42,#26332a);
+    border:1px solid rgba(245,241,234,0.2);
+  }
+  .design-card .dtag{
+    font-size:11px;
+    letter-spacing:0.2em;
+    opacity:0.7;
+    margin-bottom:8px;
+    display:block;
+  }
+  .design-card h3{
+    font-family:'Cormorant Garamond',serif;
+    font-size:34px;
+    font-style:italic;
+    font-weight:500;
+    margin:0 0 18px;
+  }
+  .design-card.a h3{color:var(--gold-soft);}
+  .design-card.b h3{color:#d8e6d3;}
+  .design-card ul{
+    list-style:none;
+    padding:0;
+    margin:0 0 20px;
+    font-size:13px;
+    opacity:0.85;
+  }
+  .design-card ul li{
+    padding:6px 0;
+    border-bottom:1px dashed rgba(255,255,255,0.15);
+  }
+  .design-card .rooms{
+    font-size:12px;
+    opacity:0.6;
+    letter-spacing:0.05em;
+  }
+  .design-swatch{
+    display:flex;
+    gap:8px;
+    margin-top:20px;
+  }
+  .design-swatch i{
+    width:24px;height:24px;
+    border-radius:50%;
+    display:inline-block;
+    border:1px solid rgba(255,255,255,0.3);
+  }
+
+  /* ===== VALUE ===== */
+  .value{
+    background:var(--cream);
+  }
+  .value-head{
+    text-align:center;
+    max-width:620px;
+    margin:0 auto 60px;
+  }
+  .value-head h2{
+    font-size:clamp(22px,3vw,32px);
+    margin:16px 0 0;
+    font-weight:700;
+  }
+  .cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+  }
+  .card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:34px 28px;
+    position:relative;
+  }
+  .card::before{
+    content:"";
+    position:absolute;
+    top:0;left:28px;right:28px;
+    height:2px;
+    background:linear-gradient(90deg,var(--gold),transparent);
+  }
+  .card .ico{
+    width:44px;height:44px;
+    border-radius:10px;
+    background:linear-gradient(150deg,var(--navy),var(--navy-deep));
+    margin-bottom:20px;
+    position:relative;
+  }
+  .card .ico::after{
+    content:"";
+    position:absolute;
+    inset:12px;
+    border:1.4px solid var(--gold-soft);
+    border-radius:4px;
+  }
+  .card h3{
+    font-size:16.5px;
+    margin:0 0 10px;
+    font-weight:700;
+  }
+  .card p{
+    font-size:13.5px;
+    color:#555;
+    margin:0;
+  }
+  .cards .card:nth-child(4),.cards .card:nth-child(5){
+    grid-column:span 1;
+  }
+  @media(min-width:900px){
+    .cards{grid-template-columns:repeat(3,1fr);}
+    .cards .card:nth-child(4){grid-column:2/3;}
+    .cards .card:nth-child(5){grid-column:3/4;}
+  }
+
+  /* ===== SCHEDULE ===== */
+  .schedule{
+    background:linear-gradient(180deg,#efe9dc,var(--cream));
+  }
+  .schedule-head{
+    text-align:center;
+    max-width:600px;
+    margin:0 auto 70px;
+  }
+  .schedule-head h2{
+    font-size:clamp(22px,3vw,32px);
+    margin:16px 0 0;
+    font-weight:700;
+  }
+  .timeline{
+    position:relative;
+    padding-left:26px;
+    border-left:2px solid var(--line);
+  }
+  .step{
+    position:relative;
+    padding-bottom:46px;
+  }
+  .step:last-child{padding-bottom:0;}
+  .step::before{
+    content:"";
+    position:absolute;
+    left:-33px;
+    top:2px;
+    width:14px;height:14px;
+    border-radius:50%;
+    background:var(--cream);
+    border:2px solid var(--gold);
+  }
+  .step .phase{
+    font-size:11px;
+    letter-spacing:0.2em;
+    color:var(--sage-deep);
+    margin-bottom:6px;
+  }
+  .step h3{
+    font-size:17px;
+    margin:0 0 8px;
+    font-weight:700;
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+  }
+  .step h3 .wk{
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--gold);
+    font-weight:500;
+  }
+  .step p{
+    font-size:13.5px;
+    color:#555;
+    margin:0;
+    max-width:640px;
+  }
+  .deadline-note{
+    margin-top:50px;
+    padding:22px 26px;
+    background:var(--navy-deep);
+    color:var(--cream);
+    border-radius:12px;
+    font-size:13px;
+    display:flex;
+    gap:16px;
+    align-items:center;
+  }
+  .deadline-note strong{
+    color:var(--gold-soft);
+    font-family:'Cormorant Garamond',serif;
+    font-size:20px;
+    font-weight:500;
+    flex-shrink:0;
+  }
+
+  /* ===== CLOSING ===== */
+  .closing{
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(201,165,112,0.2), transparent 55%),
+      radial-gradient(ellipse at 10% 90%, rgba(111,138,118,0.22), transparent 55%),
+      linear-gradient(160deg,var(--navy-deep),var(--navy));
+    color:var(--cream);
+    text-align:center;
+    padding:120px 0;
+  }
+  .closing .tag{justify-content:center;color:var(--gold-soft);}
+  .closing .tag::before{background:var(--gold-soft);}
+  .closing h2{
+    font-size:clamp(24px,4vw,38px);
+    margin:22px 0 26px;
+    font-weight:700;
+    line-height:1.7;
+  }
+  .closing p{
+    max-width:520px;
+    margin:0 auto 44px;
+    color:rgba(245,241,234,0.75);
+    font-size:14.5px;
+  }
+  .cta-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:14px;
+    background:linear-gradient(120deg,var(--gold),var(--gold-soft));
+    color:var(--navy-deep);
+    padding:18px 44px;
+    border-radius:40px;
+    font-weight:700;
+    font-size:14.5px;
+    letter-spacing:0.05em;
+    text-decoration:none;
+    box-shadow:0 20px 40px -10px rgba(201,165,112,0.4);
+  }
+  .closing-foot{
+    margin-top:60px;
+    font-size:11.5px;
+    letter-spacing:0.15em;
+    color:rgba(245,241,234,0.4);
+  }
+
+  @media(max-width:860px){
+    section{padding:80px 0;}
+    .hero{padding:100px 0 70px;}
+    .hero-grid{grid-template-columns:1fr;gap:50px;}
+    .points{grid-template-columns:1fr;}
+    .design-cards{grid-template-columns:1fr;}
+    .cards{grid-template-columns:1fr !important;}
+    .cards .card:nth-child(4),.cards .card:nth-child(5){grid-column:auto !important;}
+    .ipad{max-width:300px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-eyebrow">KAIROS PROPOSAL — SS Designs 様</div>
+      <h1>扉を開けた瞬間、<br>もう一人の<span class="accent">コンシェルジュ</span>が<br>そこにいる。</h1>
+      <p class="lead">
+        客室に置かれた一台のiPad。それは単なる注文端末ではなく、
+        施設の世界観と、宿泊者への気配りを最初に伝える"接客の入口"です。
+        Kairosは、2つの施設・12部屋・2種のデザインという構成の意図を汲み取り、
+        Web制作からsquare決済・通知連携までを一貫してご提案します。
+      </p>
+      <div class="hero-meta">
+        <div><span>予算感</span><strong>¥150,000 – ¥200,000</strong></div>
+        <div><span>納期</span><strong>2026年11月</strong></div>
+        <div><span>構成</span><strong>2ドメイン ・ 全12室</strong></div>
+      </div>
+    </div>
+    <div>
+      <div class="ipad">
+        <div class="ipad-screen">
+          <div class="ipad-top">
+            <div class="ipad-room">ROOM<strong>901</strong></div>
+            <div class="ipad-lang"><span class="active">JP</span><span>EN</span></div>
+          </div>
+          <div class="ipad-title">Amenity &amp; Rental Order</div>
+          <div class="ipad-items">
+            <div class="ipad-item">
+              <div class="name">歯ブラシセット</div>
+              <div class="stepper"><i>−</i><span>1</span><i>+</i></div>
+            </div>
+            <div class="ipad-item">
+              <div class="name">加湿器レンタル</div>
+              <div class="stepper"><i>−</i><span>0</span><i>+</i></div>
+            </div>
+            <div class="ipad-item sold">
+              <div class="name">ヨガマット</div>
+              <div class="stepper"><i>−</i><span>0</span><i>+</i></div>
+            </div>
+            <div class="ipad-item">
+              <div class="name">パジャマ M</div>
+              <div class="stepper"><i>−</i><span>1</span><i>+</i></div>
+            </div>
+          </div>
+          <div class="ipad-pay">Square決済へ進む</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- UNDERSTANDING -->
+<section class="understand">
+  <div class="wrap">
+    <div class="understand-head">
+      <span class="tag">DEEP DIVE INTO YOUR BRIEF</span>
+      <h2>これは「1サイト制作」ではなく、<br>「2つの宿泊体験」を設計するプロジェクトだと理解しています。</h2>
+    </div>
+    <div class="points">
+      <div class="point">
+        <span class="num">01</span>
+        <h3>完全に異なる2つの世界観</h3>
+        <p>domain01とdomain02は同じ機能を持ちながら、まったく別のブランド体験である必要があります。単なる配色違いではなく、レイアウト構造から見直すデザイン設計が求められます。</p>
+      </div>
+      <div class="point">
+        <span class="num">02</span>
+        <h3>12部屋への正確な複製・展開</h3>
+        <p>ベースデザインの品質を保ったまま、部屋番号・在庫状態を正しく反映した状態で全12部屋分をサブドメインへ展開する、再現性の高い運用フローが不可欠です。</p>
+      </div>
+      <div class="point">
+        <span class="num">03</span>
+        <h3>固定端末という特殊な前提</h3>
+        <p>外部アクセスを想定しない、客室常設iPadでのみ機能する接続設計。汎用的なWebサイトとは異なる、限定的アクセスの実現方法まで含めたご提案が必要です。</p>
+      </div>
+      <div class="point">
+        <span class="num">04</span>
+        <h3>2系統の処理を両立させる実装</h3>
+        <p>無料アメニティは「メール通知」、有料レンタル品は「square即時決済」。異なる導線・異なるバックエンド処理を、宿泊客にとって迷いのないUIでひとつにまとめます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESIGN CONTRAST -->
+<section class="designs">
+  <div class="wrap">
+    <div class="designs-head">
+      <span class="tag" style="justify-content:center;">TWO CONCEPTS, ONE STANDARD</span>
+      <h2>2つの施設に、2つの人格を。</h2>
+    </div>
+    <div class="design-cards">
+      <div class="design-card a">
+        <span class="dtag">DOMAIN 01 — DESIGN A</span>
+        <h3>凛 / RIN</h3>
+        <ul>
+          <li>ネイビー×ゴールドの静謐なトーン</li>
+          <li>余白を活かした和のミニマル構成</li>
+          <li>縦書き的リズムを感じさせる品目レイアウト</li>
+        </ul>
+        <div class="design-swatch">
+          <i style="background:#1a2332"></i>
+          <i style="background:#c9a570"></i>
+          <i style="background:#f5f1ea"></i>
+        </div>
+        <div class="rooms">room101 – room104（4部屋）</div>
+      </div>
+      <div class="design-card b">
+        <span class="dtag">DOMAIN 02 — DESIGN B</span>
+        <h3>憩 / IKOI</h3>
+        <ul>
+          <li>セージグリーン×生成りの、ナチュラルな温もり</li>
+          <li>丸みのあるカード構成でやさしい操作感</li>
+          <li>写真映えを意識した大きめのビジュアル比率</li>
+        </ul>
+        <div class="design-swatch">
+          <i style="background:#4f6656"></i>
+          <i style="background:#d8e6d3"></i>
+          <i style="background:#f5f1ea"></i>
+        </div>
+        <div class="rooms">room901 – room908（8部屋）</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE -->
+<section class="value">
+  <div class="wrap">
+    <div class="value-head">
+      <span class="tag" style="justify-content:center;">WHAT KAIROS BRINGS</span>
+      <h2>Kairosがご提供できる価値</h2>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="ico"></div>
+        <h3>デザイン設計力</h3>
+        <p>同じUI構造の中で、配色・タイポグラフィ・余白設計だけで印象を完全に切り替える、ブランド設計に基づいたデザイン制作を行います。</p>
+      </div>
+      <div class="card">
+        <div class="ico"></div>
+        <h3>square決済の実装経験</h3>
+        <p>Square Web Payments SDKによるカード即時決済、品切れ商品の非活性化、金額計算まで、レンタル品導線を安全に構築します。</p>
+      </div>
+      <div class="card">
+        <div class="ico"></div>
+        <h3>通知・多言語まわりの実装</h3>
+        <p>注文確定時に部屋番号・品目・数量をメール送信する仕組みと、日英切替UIを、同一コードベースで無理なく共存させます。</p>
+      </div>
+      <div class="card">
+        <div class="ico"></div>
+        <h3>12部屋展開のオペレーション</h3>
+        <p>部屋番号・在庫差分などをテンプレート変数化し、複製ミスの起きにくい構成でサブドメインへ設置、実機での動作確認まで実施します。</p>
+      </div>
+      <div class="card">
+        <div class="ico"></div>
+        <h3>固定端末向けUI/UX提案</h3>
+        <p>iPad常設という前提を踏まえたアクセス制御の実現方法と、指の操作距離を考慮したレイアウトを合わせてご提案します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section class="schedule">
+  <div class="wrap">
+    <div class="schedule-head">
+      <span class="tag" style="justify-content:center;">FLOW &amp; SCHEDULE</span>
+      <h2>2026年11月の開業に向けた進め方</h2>
+    </div>
+    <div class="timeline">
+      <div class="step">
+        <div class="phase">PHASE 1</div>
+        <h3>要件・素材のすり合わせ <span class="wk">Week 1</span></h3>
+        <p>2施設のコンセプト、掲載商品、在庫運用ルール、square/メール送信先などの情報を整理し、2デザインの方向性を確定します。</p>
+      </div>
+      <div class="step">
+        <div class="phase">PHASE 2</div>
+        <h3>デザイン制作（A / B） <span class="wk">Week 2–3</span></h3>
+        <p>domain01「凛」・domain02「憩」それぞれのベースデザインをFigmaにて作成し、レビューを経て確定します。</p>
+      </div>
+      <div class="step">
+        <div class="phase">PHASE 3</div>
+        <h3>実装・square/メール連携開発 <span class="wk">Week 4–6</span></h3>
+        <p>HTML/CSS/JSでの実装、square決済導線の組み込み、注文内容メール送信機能、多言語切替、SOLD OUT制御を構築します。</p>
+      </div>
+      <div class="step">
+        <div class="phase">PHASE 4</div>
+        <h3>12部屋分の展開・サーバー設置 <span class="wk">Week 7</span></h3>
+        <p>各部屋のサブドメインへファイルを設置し、部屋番号・在庫表示の差し替えを行います。</p>
+      </div>
+      <div class="step">
+        <div class="phase">PHASE 5</div>
+        <h3>実機検証・納品 <span class="wk">Week 8</span></h3>
+        <p>iPad実機でのSafari動作確認、決済テスト、通知テストを行い、デザインデータ一式とともに納品します。</p>
+      </div>
+    </div>
+    <div class="deadline-note">
+      <strong>Nov 2026</strong>
+      <span>納期からの逆算スケジュールを基本とし、素材確定のタイミングに応じて柔軟に調整いたします。まずは概算スケジュールのすり合わせからご相談させてください。</span>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing">
+  <div class="wrap">
+    <span class="tag">LET'S TALK</span>
+    <h2>2つの施設の"最初のおもてなし"を、<br>ご一緒に形にしませんか。</h2>
+    <p>
+      自己紹介・実績（square連携／フォーム実装のポートフォリオ）・
+      実装イメージ・スケジュール案・保守対応の可否について、
+      応募フォームより詳しくご説明させていただきます。
+    </p>
+    <a href="#" class="cta-btn">Kairosへ相談する →</a>
+    <div class="closing-foot">KAIROS — WEB &amp; SYSTEM DEVELOPMENT TEAM</div>
+  </div>
+</section>
+
+</body>
+</html>
